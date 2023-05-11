@@ -1,5 +1,6 @@
 import 'package:divv/components/my_button.dart';
 import 'package:divv/pages/login_page.dart';
+import 'package:divv/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -57,7 +58,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         text: 'Register',
                         ontap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LoginPage()));
+                              builder: (context) => RegisterPage()));
                         }),
                   ),
                   const SizedBox(
@@ -68,7 +69,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         text: 'Login',
                         ontap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const LoginPage()));
+                              builder: (context) => LoginPage()));
                         }),
                   ),
                 ],

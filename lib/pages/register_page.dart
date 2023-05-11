@@ -1,19 +1,25 @@
-import 'package:divv/components/my_button.dart';
-import 'package:divv/components/my_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({
+import '../components/my_button.dart';
+import '../components/my_textfield.dart';
+
+class RegisterPage extends StatefulWidget {
+  RegisterPage({
     super.key,
   });
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
+  final _confirmpasswordcontroller = TextEditingController();
+  final _namecontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -30,11 +36,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 const Text(
-                  "Welcome Back You've been missed!",
-                  style: TextStyle(fontSize: 38),
+                  "Welcome to DIVV",
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(
-                  height: 120,
+                  height: 100,
                 ),
                 Row(
                   children: [
@@ -42,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: 5,
                     ),
                     const Text(
-                      'Log in',
+                      'Create Account',
                       style:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                     ),
@@ -53,11 +59,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 MyTextfield(
                   obscure: false,
+                  controller: _namecontroller,
+                  hinText: 'Enter Your Name',
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                MyTextfield(
+                  obscure: false,
                   controller: _emailcontroller,
                   hinText: 'Enter email',
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 MyTextfield(
                   obscure: true,
@@ -67,39 +81,31 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        'Forgotten password?',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                    ),
-                  ],
+                MyTextfield(
+                  obscure: true,
+                  controller: _confirmpasswordcontroller,
+                  hinText: 'Confirm Password',
                 ),
                 const SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
-                MyButton(text: 'Login', ontap: () {}),
-                const SizedBox(height: 130),
+                MyButton(text: 'Register', ontap: () {}),
+                const SizedBox(height: 110),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have an account?",
+                      "Already have an account?",
                       style: TextStyle(fontSize: 16, color: Colors.grey),
                     ),
                     const SizedBox(
                       width: 5,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/register');
-                      },
+                      onTap: () =>
+                          Navigator.pushReplacementNamed(context, '/login'),
                       child: const Text(
-                        'register',
+                        'Login',
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 16,

@@ -15,6 +15,7 @@ class MyTextfield extends StatelessWidget {
     return TextField(
       obscureText: obscure,
       decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(18),
           enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white)),
           focusedBorder: const OutlineInputBorder(
