@@ -1,6 +1,6 @@
 # divv
 
-A new Flutter project.
+A global Chat App
 
 ## Getting Started
 
