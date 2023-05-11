@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'package:divv/components/my_button.dart';
+import 'package:divv/pages/login_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({super.key});
@@ -52,31 +49,36 @@ class _WelcomePageState extends State<WelcomePage> {
               const SizedBox(
                 height: 220,
               ),
-              MyButton(text: 'Sign In', ontap: () {}),
-              const SizedBox(
-                height: 20,
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Text(
-                    "Don't have an account?",
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
+                  Expanded(
+                    child: MyButton(
+                        text: 'Register',
+                        ontap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
+                        }),
                   ),
                   const SizedBox(
-                    width: 5,
+                    width: 10,
                   ),
-                  const Text(
-                    'register',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
+                  Expanded(
+                    child: MyButton(
+                        text: 'Login',
+                        ontap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
+                        }),
                   ),
                 ],
               ),
               const SizedBox(
                 height: 20,
+              ),
+
+              const SizedBox(
+                height: 10,
               )
             ],
           ),
