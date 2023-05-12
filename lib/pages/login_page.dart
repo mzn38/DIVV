@@ -21,19 +21,19 @@ class _LoginPageState extends State<LoginPage> {
           child: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
                 const Text(
                   "Welcome Back You've been missed!",
                   style: TextStyle(fontSize: 38),
                 ),
                 const SizedBox(
-                  height: 120,
+                  height: 95,
                 ),
                 Row(
                   children: const [
@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(
-                  height: 60,
+                  height: 50,
                 ),
                 MyButton(text: 'Login', ontap: () {}),
                 const SizedBox(height: 130),
