@@ -1,3 +1,4 @@
+import 'package:divv/components/auth.dart';
 import 'package:divv/components/my_button.dart';
 import 'package:divv/pages/login_page.dart';
 import 'package:divv/pages/register_page.dart';
@@ -57,8 +58,8 @@ class _WelcomePageState extends State<WelcomePage> {
                     child: MyButton(
                         text: 'Register',
                         ontap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Auth()));
                         }),
                   ),
                   const SizedBox(
@@ -68,10 +69,10 @@ class _WelcomePageState extends State<WelcomePage> {
                     child: MyButton(
                         text: 'Login',
                         ontap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginPage()));
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Auth()));
                         }),
-                  ),
+                  )
                 ],
               ),
               const SizedBox(

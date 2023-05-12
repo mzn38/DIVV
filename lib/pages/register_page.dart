@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../components/my_button.dart';
 import '../components/my_textfield.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({
-    super.key,
-  });
+  final VoidCallback toggleview;
+  RegisterPage({super.key, required this.toggleview});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -43,11 +40,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 100,
                 ),
                 Row(
-                  children: [
-                    const SizedBox(
+                  children: const [
+                    SizedBox(
                       width: 5,
                     ),
-                    const Text(
+                    Text(
                       'Create Account',
                       style:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
@@ -102,8 +99,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 5,
                     ),
                     GestureDetector(
-                      onTap: () =>
-                          Navigator.pushReplacementNamed(context, '/login'),
+                      onTap: widget.toggleview,
                       child: const Text(
                         'Login',
                         style: TextStyle(

@@ -13,12 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        '/': (context) => WelcomePage(),
-        '/login': (context) => LoginPage(),
-        '/register': (context) => RegisterPage()
-      },
       theme: ThemeData(primarySwatch: Colors.grey),
+      home: WelcomePage(),
     );
   }
 }

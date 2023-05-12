@@ -3,9 +3,8 @@ import 'package:divv/components/my_textfield.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({
-    super.key,
-  });
+  final VoidCallback toggleview;
+  LoginPage({super.key, required this.toggleview});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -37,11 +36,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: 120,
                 ),
                 Row(
-                  children: [
-                    const SizedBox(
+                  children: const [
+                    SizedBox(
                       width: 5,
                     ),
-                    const Text(
+                    Text(
                       'Log in',
                       style:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
@@ -95,9 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: 5,
                     ),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/register');
-                      },
+                      onTap: widget.toggleview,
                       child: const Text(
                         'register',
                         style: TextStyle(

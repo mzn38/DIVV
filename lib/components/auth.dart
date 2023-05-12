@@ -1,5 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter/material.dart';
 
 import '../pages/login_page.dart';
 import '../pages/register_page.dart';
@@ -22,6 +21,14 @@ class _AuthState extends State<Auth> {
 
   @override
   Widget build(BuildContext context) {
-    return _showLogin ? LoginPage() : RegisterPage();
+    return Scaffold(
+      body: _showLogin
+          ? LoginPage(
+              toggleview: toggleView,
+            )
+          : RegisterPage(
+              toggleview: toggleView,
+            ),
+    );
   }
 }
