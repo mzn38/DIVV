@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordcontroller = TextEditingController();
 
   Future logIn() async {
-    Dialog(
+    const Dialog(
       child: Center(child: CircularProgressIndicator()),
     );
     await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -54,8 +54,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 95,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     SizedBox(
                       width: 5,
                     ),
