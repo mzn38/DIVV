@@ -1,5 +1,6 @@
 import 'package:divv/components/my_button.dart';
 import 'package:divv/components/my_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +14,24 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _emailcontroller = TextEditingController();
   final _passwordcontroller = TextEditingController();
+
+  Future logIn() async {
+    Dialog(
+      child: Center(child: CircularProgressIndicator()),
+    );
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailcontroller.text.trim(),
+        password: _passwordcontroller.text.trim());
+  }
+
+  void signInAndPop(BuildContext context) {
+    logIn().then((_) {
+      Navigator.popUntil(context, (route) => false);
+    }).catchError((error) {
+      print('Sign-in failed: $error');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +100,11 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                MyButton(text: 'Login', ontap: () {}),
+                MyButton(
+                    text: 'Login',
+                    ontap: () {
+                      signInAndPop(context);
+                    }),
                 const SizedBox(height: 130),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
