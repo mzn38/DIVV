@@ -1,5 +1,6 @@
 import 'package:divv/components/my_button.dart';
 import 'package:divv/components/my_textfield.dart';
+import 'package:divv/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,21 +17,34 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordcontroller = TextEditingController();
 
   Future logIn() async {
-    const Dialog(
-      child: Center(child: CircularProgressIndicator()),
-    );
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailcontroller.text.trim(),
-        password: _passwordcontroller.text.trim());
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailcontroller.text.trim(),
+          password: _passwordcontroller.text.trim());
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
+      navigatorKey.currentState!.pop();
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(e.code),
+              ));
+    }
   }
 
-  void signInAndPop(BuildContext context) {
-    logIn().then((_) {
-      Navigator.popUntil(context, (route) => false);
-    }).catchError((error) {
-      print('Sign-in failed: $error');
-    });
-  }
+  // void signInAndPop(BuildContext context) {
+  //   logIn().then((_) {
+  //     Navigator.pop(context);
+  //   }).catchError((error) {
+  //     print('Sign-in failed: $error');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                 MyButton(
                     text: 'Login',
                     ontap: () {
-                      signInAndPop(context);
+                      logIn();
                     }),
                 const SizedBox(height: 130),
                 Row(

@@ -1,3 +1,5 @@
+import 'package:divv/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../components/my_button.dart';
@@ -16,6 +18,55 @@ class _RegisterPageState extends State<RegisterPage> {
   final _passwordcontroller = TextEditingController();
   final _confirmpasswordcontroller = TextEditingController();
   final _namecontroller = TextEditingController();
+
+  bool passconfirmed() {
+    if (_passwordcontroller.text.trim() ==
+        _confirmpasswordcontroller.text.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future signUp() async {
+    if (passconfirmed()) {
+      showDialog(
+          context: context,
+          builder: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ));
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailcontroller.text.trim(),
+            password: _passwordcontroller.text.trim());
+        navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      } on FirebaseAuthException catch (e) {
+        navigatorKey.currentState!.pop();
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text(e.code),
+                ));
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+                title: Text(
+                  'Password dont match',
+                  textAlign: TextAlign.center,
+                ),
+              ));
+    }
+  }
+
+  // void signupAndPop(BuildContext context) {
+  //   signUp().then((_) {
+  //     Navigator.pop(context);
+  //   }).catchError((error) {
+  //     print('Sign-up failed: $error');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +90,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 100,
                 ),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     SizedBox(
                       width: 5,
                     ),
@@ -86,7 +137,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                MyButton(text: 'Register', ontap: () {}),
+                MyButton(
+                    text: 'Register',
+                    ontap: () {
+                      signUp();
+                    }),
                 const SizedBox(height: 110),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
