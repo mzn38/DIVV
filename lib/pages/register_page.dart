@@ -37,6 +37,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future signInWithEmailAndName() async {
     if (passconfirmed()) {
+      showDialog(
+          context: context,
+          builder: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ));
       try {
         UserCredential userCredential =
             await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -50,6 +55,8 @@ class _RegisterPageState extends State<RegisterPage> {
         }
 
         adduser(_namecontroller.text.trim(), _emailcontroller.text.trim());
+
+        navigatorKey.currentState!.popUntil((route) => route.isFirst);
 
         // Rest of your code...
       } on FirebaseAuthException catch (e) {
