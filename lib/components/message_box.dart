@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 
 class MessageContent extends StatelessWidget {
-  final String user;
   final String message;
   final String name;
+  final bool iscurrentuser;
 
   const MessageContent(
       {super.key,
-      required this.user,
       required this.message,
-      required this.name});
+      required this.name,
+      required this.iscurrentuser});
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment:
+          iscurrentuser ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
           margin: EdgeInsets.only(
-            top: 15,
-            right: 15,
-            left: 15,
+            top: 10,
+            right: 10,
+            left: 10,
           ),
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: Color.fromARGB(255, 141, 123, 104),
@@ -32,16 +34,16 @@ class MessageContent extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    name,
-                    style: TextStyle(fontSize: 12, color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 5,
+                  Visibility(
+                    visible: !iscurrentuser,
+                    child: Text(
+                      name,
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    ),
                   ),
                   Text(
                     message,
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ],
               ),

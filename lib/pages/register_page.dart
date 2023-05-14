@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
         .add({'name': name, 'email': email});
   }
 
-  Future signInWithEmailAndName() async {
+  Future signupWithEmailAndName() async {
     if (passconfirmed()) {
       showDialog(
           context: context,
@@ -49,15 +49,13 @@ class _RegisterPageState extends State<RegisterPage> {
           password: _passwordcontroller.text.trim(),
         );
 
+        adduser(_namecontroller.text.trim(), _emailcontroller.text.trim());
+
+        navigatorKey.currentState!.popUntil((route) => route.isFirst);
         User? user = userCredential.user;
         if (user != null) {
           await user.updateDisplayName(_namecontroller.text.trim());
         }
-
-        adduser(_namecontroller.text.trim(), _emailcontroller.text.trim());
-
-        navigatorKey.currentState!.popUntil((route) => route.isFirst);
-
         // Rest of your code...
       } on FirebaseAuthException catch (e) {
         navigatorKey.currentState!.pop();
@@ -114,13 +112,13 @@ class _RegisterPageState extends State<RegisterPage> {
   //   }
   // }
 
-  void signupAndPop(BuildContext context) {
-    signInWithEmailAndName().then((_) {
-      Navigator.pop(context);
-    }).catchError((error) {
-      print('Sign-up failed: $error');
-    });
-  }
+  // void signupAndPop(BuildContext context) {
+  //   signupWithEmailAndName().then((_) {
+  //     Navigator.pop(context);
+  //   }).catchError((error) {
+  //     print('Sign-up failed: $error');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +197,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: Color.fromARGB(255, 141, 123, 104),
                     text: 'Register',
                     ontap: () {
-                      signInWithEmailAndName();
+                      signupWithEmailAndName();
                     }),
                 const SizedBox(height: 110),
                 Row(

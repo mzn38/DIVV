@@ -15,18 +15,20 @@ class _HomePageState extends State<HomePage> {
   final currentuser = FirebaseAuth.instance.currentUser;
 
   final messagecontroller = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void signout() {
     FirebaseAuth.instance.signOut();
   }
 
   void postmessage() async {
+    User? currentuserr = _auth.currentUser;
     if (messagecontroller.text.isNotEmpty) {
       await FirebaseFirestore.instance.collection("usermsg").add(
         {
           'message': messagecontroller.text,
-          'user': currentuser?.email,
-          'name': currentuser?.displayName,
+          'user': currentuser?.uid,
+          'name': currentuserr?.displayName,
           'TimeStamp': Timestamp.now()
         },
       );
@@ -38,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final CurrentUser = _auth.currentUser;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -59,8 +62,11 @@ class _HomePageState extends State<HomePage> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       final post = snapshot.data!.docs[index];
+
+                      final isCurrentUser = CurrentUser != null &&
+                          CurrentUser.uid == post['user'];
                       return MessageContent(
-                        user: post['user'],
+                        iscurrentuser: isCurrentUser,
                         message: post['message'],
                         name: post['name'],
                       );
