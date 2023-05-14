@@ -27,6 +27,7 @@ class _Login_or_Register extends State<Login_or_Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       body: showlogin
           ? LoginPage(
               toggleview: toggleView,

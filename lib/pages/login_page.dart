@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
           child: SingleChildScrollView(
         child: Center(
@@ -115,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                 ),
                 MyButton(
+                    color: Color.fromARGB(255, 141, 123, 104),
                     text: 'Login',
                     ontap: () {
                       logIn();

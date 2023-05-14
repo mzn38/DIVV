@@ -21,7 +21,7 @@ class AuthPAge extends StatelessWidget {
                 child: Text('something went wrong'),
               );
             } else if (snapshot.hasData) {
-              return const HomePage();
+              return HomePage();
             } else {
               return const WelcomePage();
             }

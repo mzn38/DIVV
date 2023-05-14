@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:divv/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,18 +29,29 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future signUp() async {
+  Future adduser(String name, String email) async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .add({'name': name, 'email': email});
+  }
+
+  Future signInWithEmailAndName() async {
     if (passconfirmed()) {
-      showDialog(
-          context: context,
-          builder: (context) => const Center(
-                child: CircularProgressIndicator(),
-              ));
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: _emailcontroller.text.trim(),
-            password: _passwordcontroller.text.trim());
-        navigatorKey.currentState!.popUntil((route) => route.isFirst);
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailcontroller.text.trim(),
+          password: _passwordcontroller.text.trim(),
+        );
+
+        User? user = userCredential.user;
+        if (user != null) {
+          await user.updateDisplayName(_namecontroller.text.trim());
+        }
+
+        adduser(_namecontroller.text.trim(), _emailcontroller.text.trim());
+
+        // Rest of your code...
       } on FirebaseAuthException catch (e) {
         navigatorKey.currentState!.pop();
         showDialog(
@@ -60,18 +72,53 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  // void signupAndPop(BuildContext context) {
-  //   signUp().then((_) {
-  //     Navigator.pop(context);
-  //   }).catchError((error) {
-  //     print('Sign-up failed: $error');
-  //   });
+  // Future signUp() async {
+  //   if (passconfirmed()) {
+  //     showDialog(
+  //         context: context,
+  //         builder: (context) => const Center(
+  //               child: CircularProgressIndicator(),
+  //             ));
+  //     try {
+  //       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //           email: _emailcontroller.text.trim(),
+  //           password: _passwordcontroller.text.trim());
+
+  //       adduser(_namecontroller.text.trim(), _emailcontroller.text.trim());
+
+  //       navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  //     } on FirebaseAuthException catch (e) {
+  //       navigatorKey.currentState!.pop();
+  //       showDialog(
+  //           context: context,
+  //           builder: (context) => AlertDialog(
+  //                 title: Text(e.code),
+  //               ));
+  //     }
+  //   } else {
+  //     showDialog(
+  //         context: context,
+  //         builder: (context) => const AlertDialog(
+  //               title: Text(
+  //                 'Password dont match',
+  //                 textAlign: TextAlign.center,
+  //               ),
+  //             ));
+  //   }
   // }
+
+  void signupAndPop(BuildContext context) {
+    signInWithEmailAndName().then((_) {
+      Navigator.pop(context);
+    }).catchError((error) {
+      print('Sign-up failed: $error');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
           child: SingleChildScrollView(
         child: Center(
@@ -85,7 +132,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const Text(
                   "Welcome to DIVV",
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.w700,
+                    color: Color.fromARGB(255, 141, 123, 104),
+                  ),
                 ),
                 const SizedBox(
                   height: 100,
@@ -138,9 +189,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 50,
                 ),
                 MyButton(
+                    color: Color.fromARGB(255, 141, 123, 104),
                     text: 'Register',
                     ontap: () {
-                      signUp();
+                      signInWithEmailAndName();
                     }),
                 const SizedBox(height: 110),
                 Row(

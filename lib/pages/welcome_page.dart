@@ -13,6 +13,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       body: SafeArea(
           child: Center(
         child: Padding(
@@ -20,22 +21,26 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const SizedBox(
-                height: 150,
-              ),
+              // const SizedBox(
+              //   height: 100,
+              // ),
               //main icon
               const Icon(
                 Icons.flash_on,
                 size: 100,
+                color: Color.fromARGB(255, 141, 123, 104),
               ),
 
               //main text
               const Text(
                 ' Welcome to DIVV',
-                style: TextStyle(fontSize: 34, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w800,
+                    color: Color.fromARGB(255, 141, 123, 104)),
               ),
               const SizedBox(
-                height: 50,
+                height: 30,
               ),
               const Text(
                 'Connect globally, chat freely. Embrace diversity, share your voice.',
@@ -43,17 +48,18 @@ class _WelcomePageState extends State<WelcomePage> {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+                  color: Color.fromARGB(255, 200, 182, 166),
                 ),
               ),
               const SizedBox(
-                height: 220,
+                height: 230,
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
                     child: MyButton(
+                        color: Color.fromARGB(255, 141, 123, 104),
                         text: 'Register',
                         ontap: () {
                           Navigator.push(
@@ -69,6 +75,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   Expanded(
                     child: MyButton(
+                        color: Color.fromARGB(255, 141, 123, 104),
                         text: 'Login',
                         ontap: () {
                           Navigator.push(

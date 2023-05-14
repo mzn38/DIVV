@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      theme: ThemeData(primarySwatch: Colors.grey),
+      theme: ThemeData(primarySwatch: Colors.brown),
       home: const AuthPAge(),
     );
   }
